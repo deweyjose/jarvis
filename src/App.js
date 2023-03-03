@@ -17,16 +17,16 @@ function Prompt() {
       }
     )
       .then((res) => res.json())
-      .then(
-        (res) => {
-          setLoading(false);
-          setResponse(res[0].text.trim());
-        },
-        (error) => {
-          console.log("error", error);
-          setResponse(error.message);
-        }
-      );
+      .then((res) => {
+        setResponse(res[0].text.trim());
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setResponse(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
