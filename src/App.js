@@ -3,14 +3,12 @@ import "./App.css";
 
 function Prompt() {
   const prompt = useRef(null);
-  const [inputs, setInputs] = useState({
-    loading: false,
-    response: "",
-  });
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setInputs((values) => ({ ...values, loading: true }));
+    setLoading(true);
     fetch(
       "https://sm6bgqavpagpz4i5c4nl5ty2c40dnudl.lambda-url.us-east-1.on.aws/",
       {
@@ -18,18 +16,15 @@ function Prompt() {
         body: JSON.stringify({ prompt: prompt.current.value }),
       }
     )
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then(
-        (response) => {
-          setInputs((values) => ({
-            ...values,
-            loading: false,
-            response: response[0].text.trim(),
-          }));
+        (res) => {
+          setLoading(false);
+          setResponse(res[0].text.trim());
         },
         (error) => {
           console.log("error", error);
-          setInputs((values) => ({ ...values, response: error.message }));
+          setResponse(error.message);
         }
       );
   };
@@ -46,8 +41,8 @@ function Prompt() {
         </button>
       </div>
       <div className="App-response-area">
-        {inputs.loading && <i>loading...</i>}
-        {!inputs.loading && inputs.response}
+        {loading && <i>loading...</i>}
+        {!loading && response}
       </div>
     </div>
   );
