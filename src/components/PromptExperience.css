@@ -6,11 +6,28 @@
   margin-bottom: 20px;
 }
 
-.PromptForm > textarea {
+.PromptFormControls {
+  width: 100%;
+}
+
+.PromptFormAudioControls {
+  float: left;
+}
+
+.PromptFormAudioControl {
+  text-align: start;
+}
+
+.PromptFormLabel {
+  font-size: xx-small;
+}
+
+.PromptForm>textarea {
   outline: none;
   width: 100%;
 }
 
-.PromptForm > button {
+.PromptFormButton {
   margin: auto;
+  float: right;
 }
